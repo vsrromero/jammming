@@ -20,8 +20,23 @@ class App extends React.Component {
                        {id:6, trackName: 'Playlist track 2', artist: 'Playlist artist 2', album: 'Playlist album 2'},
                        {id:7, trackName: 'Playlist track 3', artist: 'Playlist artist 3', album: 'Playlist album 3'},
                        {id:8, trackName: 'Playlist track 4', artist: 'Playlist artist 4', album: 'Playlist album 4'}]
-    }
+    };
 
+    this.addTrack = this.addTrack.bind(this);
+
+  }
+
+  addTrack(track){
+    let tracks = this.state.playlistTracks; //get the array of object tracks
+    // check if track already exists on playlist tracks
+    //if exists does nothing, else, add the track to playlist tracks
+    //saved track = track on playlist
+    if (tracks.find(savedTrack => savedTrack.id === track.id)){
+      return;
+    } else {
+      tracks.push(track);
+      this.setState({playlistTracks: tracks});
+    }
   }
 
   render(){
@@ -31,7 +46,8 @@ class App extends React.Component {
         <div className="App">
           <SearchBar />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults}/> {/*passing the tracks got from API to SearchResults component*/}
+            <SearchResults searchResults={this.state.searchResults} 
+            onAdd={this.addTrack} /> {/*passing the tracks got from API to SearchResults component*/}
             <Playlist playlistName={this.state.playlistName} 
                       playlistTracks={this.state.playlistTracks} /> {/*passing the play list tracks and names to Playlist component*/}
           </div>
