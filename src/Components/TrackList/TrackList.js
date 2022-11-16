@@ -5,14 +5,15 @@ import './TrackList.css';
 class TrackList extends React.Component {
     render(){
         return(
-        <div className="TrackList">
-            {
-                this.props.tracks.map(showTracks => {
-                    return <Track track={showTracks} /*pass as an array, the tracks to Track component to render tracks*/
-                                  key={showTracks.id} />
-                })
-            }
-        </div>
+            <div className="TrackList">
+                {
+                    this.props.tracks.map(track => {
+                        return <Track track={track} /*pass as an array [tracks] to Track component to render tracks*/
+                                    key={track.id} 
+                                    onAdd={this.props.onAdd} />
+                    })
+                }
+            </div>
         )
     }
 }

@@ -23,10 +23,11 @@ class App extends React.Component {
     };
 
     this.addTrack = this.addTrack.bind(this);
+    // this.removeTrack = this.removeTrack.bind(this);
 
   }
 
-  addTrack(track){
+  addTrack(track){ //get the track to check if exists on playlist
     let tracks = this.state.playlistTracks; //get the array of object tracks
     // check if track already exists on playlist tracks
     //if exists does nothing, else, add the track to playlist tracks
@@ -37,7 +38,16 @@ class App extends React.Component {
       tracks.push(track);
       this.setState({playlistTracks: tracks});
     }
+
+    console.log(tracks);
   }
+
+  // removeTrack(track){
+  //   let tracks = this.state.playlistTracks;
+  //   tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
+  //   this.setState({playlistTracks: tracks})
+    
+  // }
 
   render(){
     return (
@@ -47,7 +57,7 @@ class App extends React.Component {
           <SearchBar />
           <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults} 
-            onAdd={this.addTrack} /> {/*passing the tracks got from API to SearchResults component*/}
+                           onAdd={this.addTrack} /> {/*passing the tracks got from API to SearchResults component*/}
             <Playlist playlistName={this.state.playlistName} 
                       playlistTracks={this.state.playlistTracks} /> {/*passing the play list tracks and names to Playlist component*/}
           </div>
