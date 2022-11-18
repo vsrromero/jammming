@@ -8,6 +8,7 @@ import Playlist from '../Playlist/Playlist';
 class App extends React.Component {
 
   constructor(props){
+
     super(props);
 
     this.state = {    /*tracks hard coded will come from Spotify API*/
@@ -23,15 +24,20 @@ class App extends React.Component {
     };
 
     this.addTrack = this.addTrack.bind(this);
-    // this.removeTrack = this.removeTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
+    this.updatePlaylistName = this.updatePlaylistName.bind(this);
 
   }
 
-  addTrack(track){ //get the track to check if exists on playlist
-    let tracks = this.state.playlistTracks; //get the array of object tracks
+  addTrack(track){ //get the track to check if exists on playlist to be added on
+
+    //get the array of object tracks
+    let tracks = this.state.playlistTracks; 
+
     // check if track already exists on playlist tracks
     //if exists does nothing, else, add the track to playlist tracks
     //saved track = track on playlist
+
     if (tracks.find(savedTrack => savedTrack.id === track.id)){
       return;
     } else {
@@ -42,12 +48,16 @@ class App extends React.Component {
     console.log(tracks);
   }
 
-  // removeTrack(track){
-  //   let tracks = this.state.playlistTracks;
-  //   tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
-  //   this.setState({playlistTracks: tracks})
+  removeTrack(track){ //get the track to be removed from playlist
+    let tracks = this.state.playlistTracks;
+    tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
+    this.setState({playlistTracks: tracks})
     
-  // }
+  }
+
+  updatePlaylistName(newPlaylistName){
+    this.setState({playlistName: newPlaylistName})
+  }
 
   render(){
     return (
@@ -59,7 +69,9 @@ class App extends React.Component {
             <SearchResults searchResults={this.state.searchResults} 
                            onAdd={this.addTrack} /> {/*passing the tracks got from API to SearchResults component*/}
             <Playlist playlistName={this.state.playlistName} 
-                      playlistTracks={this.state.playlistTracks} /> {/*passing the play list tracks and names to Playlist component*/}
+                      playlistTracks={this.state.playlistTracks} 
+                      onRemove={this.removeTrack}
+                      onNameChange={this.updatePlaylistName} /> 
           </div>
         </div>
       </div>

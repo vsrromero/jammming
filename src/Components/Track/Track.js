@@ -6,20 +6,24 @@ class Track extends React.Component {
     constructor(props){
         super(props);
         this.addTrack = this.addTrack.bind(this);
+        this.removeTrack = this.removeTrack.bind(this);
     }
 
-    
     /*When user peform a search, all the results will set the isRemoval attribute to false, so the songs will have a + sign button to add the song to the playlist that will be saved, and in case the song is clicked to be added, it renders a - sign to remove*/
     renderButtonAddRemoveSong(){ 
         if (this.props.isRemoval) {
-            return <button className="Track-action">-</button>
+            return <button className="Track-action" onClick={this.removeTrack}>➖</button> //onClick call removeTrack()
         } else {
-            return <button className="Track-action" onClick={this.addTrack}>+</button>
+            return <button className="Track-action" onClick={this.addTrack}>➕</button> //onClick call addTrack()
         }
     }
     
-    addTrack(){ //pass the track to addTrack() on app.js through onAdd property
+    addTrack(){ //pass the track to addTrack() on app.js through onAdd prop
         this.props.onAdd(this.props.track);
+    }
+
+    removeTrack(){ //pass the track to removeTrack() on app.js through onRemove prop
+        this.props.onRemove(this.props.track);
     }
 
     render(){ 
