@@ -20,6 +20,7 @@ class Track extends React.Component {
     
     addTrack(){ //pass the track to addTrack() on app.js through onAdd prop
         this.props.onAdd(this.props.track);
+        console.log(this.props.track);
     }
 
     removeTrack(){ //pass the track to removeTrack() on app.js through onRemove prop
