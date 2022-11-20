@@ -1,5 +1,4 @@
 import React from 'react';
-import render from 'react-dom';
 import './App.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
@@ -12,16 +11,10 @@ class App extends React.Component {
 
     super(props);
 
-    this.state = {    /*tracks hard coded will come from Spotify API*/
-      searchResults: [{id:1, trackName:'song 1', artist:'Artist 1', album:'Album 1'},
-                      {id:2, trackName:'song 2', artist:'Artist 2', album:'Album 2'},
-                      {id:3, trackName:'song 3', artist:'Artist 3', album:'Album 3'},
-                      {id:4, trackName:'song 4', artist:'Artist 4', album:'Album 4'}],
-      playlistName: 'My new playlist',
-      playlistTracks: [{id:5, trackName: 'Playlist track 1', artist: 'Playlist artist 1', album: 'Playlist album 1',  uri: 'abc'},
-                       {id:6, trackName: 'Playlist track 2', artist: 'Playlist artist 2', album: 'Playlist album 2',uri: 'def'},
-                       {id:7, trackName: 'Playlist track 3', artist: 'Playlist artist 3', album: 'Playlist album 3',uri: 'ghi'},
-                       {id:8, trackName: 'Playlist track 4', artist: 'Playlist artist 4', album: 'Playlist album 4',uri: 'jkl'}]
+    this.state = {    
+      searchResults: [],
+      playlistName: 'Playlist name here',
+      playlistTracks: []
     };
 
     this.addTrack = this.addTrack.bind(this);
@@ -67,10 +60,16 @@ class App extends React.Component {
         
     let trackURIs = this.state.playlistTracks.map(track => track.uri); 
     console.log(trackURIs);
-
+    Spotify.savePlaylist(this.state.playlistName, trackURIs).then(() => {
+      this.setState({
+        playlistName: 'Playlist name here',
+        playlistTracks: []
+      })
+    });
   }
 
   search(term) {
+    console.log('search button working: '+term);
     Spotify.search(term).then(apiSearchResults => {
       this.setState({searchResults: apiSearchResults})
     })
