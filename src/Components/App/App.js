@@ -69,10 +69,11 @@ class App extends React.Component {
   }
 
   search(term) {
-    console.log('search button working: '+term);
+
     Spotify.search(term).then(apiSearchResults => {
       this.setState({searchResults: apiSearchResults})
     })
+    
   }
 
   render(){
