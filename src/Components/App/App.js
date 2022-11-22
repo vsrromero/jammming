@@ -57,15 +57,14 @@ class App extends React.Component {
 
   savePlaylist(){
     //create an array called trackURIs that receive the playlistTracks objects and get through map method the uri property of each track
-        
-    let trackURIs = this.state.playlistTracks.map(track => track.uri); 
-    console.log(trackURIs);
+    const trackURIs = this.state.playlistTracks.map(track => track.uri); 
     Spotify.savePlaylist(this.state.playlistName, trackURIs).then(() => {
       this.setState({
         playlistName: 'Playlist name here',
-        playlistTracks: []
+        playlistTracks: [],
+        searchResults: []
       })
-    });
+    })
   }
 
   search(term) {
