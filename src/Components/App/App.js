@@ -40,8 +40,7 @@ class App extends React.Component {
       tracks.push(track);
       this.setState({playlistTracks: tracks});
     }
-
-    console.log(track);
+  
   }
 
   removeTrack(track){ //get the track to be removed from playlist
@@ -67,7 +66,7 @@ class App extends React.Component {
     })
   }
 
-  search(term) {
+search(term) {
 
     Spotify.search(term).then(apiSearchResults => {
       this.setState({searchResults: apiSearchResults})
