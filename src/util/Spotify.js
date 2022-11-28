@@ -1,5 +1,6 @@
 const clientId = '262c0c96879c4e4da23a26da7cc392be';
-const redirectUri = 'http://localhost:3000/';
+//const redirectUri = 'http://localhost:3000/';
+const redirectUri = 'https://loquacious-zuccutto-c58a58.netlify.app/';
 let accessToken;
 
 const Spotify = {
